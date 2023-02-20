@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from scraper import Scraper
+from spotify_service import SpotifyService
 
 
 def handler(event, context):
@@ -14,6 +15,8 @@ def main():
         browser = get_chrome_browser()
         scraper = Scraper(browser)
         releases = scraper.scrape_new_releases()
+        spotify_service = SpotifyService()
+        spotify_service.add_new_releases(releases)
     finally:
         browser.quit()
 
